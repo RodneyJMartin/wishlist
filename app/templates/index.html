@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wish List</title>
+<style>
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+    .success {
+        color: green;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <fieldset>
+        <legend>Register</legend>
+        <form action="/register" method="POST">        
+            {% csrf_token %}
+            <label for="name">Name</label><br>
+            <input type="text" id="name" name="name"><br>
+            <label for="username">Username</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password"><br>
+            <label for="password_confirm">Password Confirmation</label><br>
+            <input type="password" id="password_confirm" name="password_confirm"><br>
+            <label for="date_hired">Date Hired</label><br>
+            <input type="date" id="date_hired" name="date_hired">
+            <input type="submit" value="register">
+        </form>  
+    </fieldset>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <fieldset>
+        <legend>Login</legend>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <label for="username">Username</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password">
+            <input type="submit" value="login">
+        </form>
+    </fieldset>
+</body>
+</html>

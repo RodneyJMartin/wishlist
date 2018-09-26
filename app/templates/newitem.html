@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wish List</title>
+<style>
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+    .success {
+        color: green;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+    <h2>Create a new wish list item</h2>
+    <form action="/addproduct" method="POST">        
+        {% csrf_token %}
+        <label for="name">item/product</label>
+        <input type="text" id="name" name="name"><br>
+        <input type="submit" value="Add">
+    </form>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="/logout" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="logout">
+    </form>
+    <form action="/home" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="home">
+    </form>
+</body>
+</html>

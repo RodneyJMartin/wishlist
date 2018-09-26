@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wish List</title>
+<style>
+.container{
+    width: 600px;
+    margin: auto;
+}
+
+
+
+
+
+
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Hello, {{ request.session.User_id }}!</h2>
+        <form action="/logout" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="logout">
+        </form>
+        <p>Your wish list:</p>
+        <div class="added_products">
+            <table border="1">
+                <tr>
+                    <th>Item</th>
+                    <th>Added by</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for product in added_products %}
+                <tr>
+                    <td><a href="/products/info/{{product.id}}">{{product.name}}</a></td>
+                    <td>{{product.user.username}}</td>
+                    <td>{{product.date_added}}</td>
+                    <td><a href="/removepro/{{product.id}}">Remove from my wishlist</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <p>Other Users' wish list</p>
+        <div class="unadded_products">
+            <table border="1">
+                <tr>
+                    <th>Item</th>
+                    <th>Added by</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for product in products %}
+                <tr>
+                    <td><a href="/products/info/{{product.id}}">{{product.name}}</a></td>
+                    <td>{{product.user.username}}</td>
+                    <td>{{product.date_added}}</td>
+                    <td><a href="/addpro/{{product.id}}">Add to my wishlist</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <form action="/newitem" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Add item">
+        </form>
+    </div>
+</body>
+</html>
